@@ -14,6 +14,8 @@ import Green from './screens/levels/Green';
 import Blue from './screens/levels/Blue';
 import Indigo from './screens/levels/Indigo';
 import Violet from './screens/levels/Violet';
+import WinScreen from './screens/WinScreen';
+import LoserScreen from './screens/LoserScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -87,11 +89,12 @@ const App = () => {
             source={require('./assets/png/from.png')}
             style={{}}
           />
-          {/** <Animated.Image
+          <Animated.Image
             source={require('./assets/png/red.png')}
-            style={{width: 250, height: 160}}
-          />*/}
-          <Animated.Text
+            style={{width: 220, height: 140}}
+          />
+
+          {/**  <Animated.Text
             style={{
               color: 'red',
               fontSize: 120,
@@ -99,8 +102,12 @@ const App = () => {
               fontFamily: 'Gaegu-Bold',
             }}>
             Red
-          </Animated.Text>
-          <Animated.Image source={require('./assets/png/to.png')} style={{}} />
+          </Animated.Text>*/}
+          <Animated.Image
+            source={require('./assets/png/to.png')}
+            style={{marginTop: -20, marginBottom: 20}}
+          />
+          {/**
           <Animated.Text
             style={{
               color: 'violet',
@@ -109,7 +116,11 @@ const App = () => {
               fontFamily: 'Gaegu-Bold',
             }}>
             Violet
-          </Animated.Text>
+          </Animated.Text> */}
+          <Animated.Image
+            source={require('./assets/png/violet.png')}
+            style={{width: '100%', height: 100}}
+          />
         </Animated.View>
       </View>
     );
@@ -182,6 +193,17 @@ const App = () => {
           <Stack.Screen
             name="Violet"
             component={Violet}
+            options={{headerShown: false}}
+          />
+
+          <Stack.Screen
+            name="WinScreen"
+            component={WinScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="LoserScreen"
+            component={LoserScreen}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
