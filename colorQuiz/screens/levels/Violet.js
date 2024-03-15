@@ -14,39 +14,31 @@ import {
 const Violet = ({navigation}) => {
   const questions = [
     {
-      question: 'What is the capital of France?',
-      options: ['Paris', 'London', 'Berlin', 'Rome'],
-      correctAnswer: 'Paris',
+      question: `What is the name of Prince's famous rock song with the color purple in its title?`,
+      options: [
+        'Violet Haze',
+        'Violet Rain',
+        'Violet Man-Eater',
+        'Paint it black',
+      ],
+      correctAnswer: 'Violet Rain',
     },
     {
-      question: 'What is the capital of UK?',
-      options: ['Paris', 'London', 'Berlin', 'Rome'],
-      correctAnswer: 'London',
+      question:
+        'Which flower is commonly associated with the color purple and is often used as a symbol of royalty and admiration?',
+      options: ['Tulip', 'Rose', 'Lily', 'Orchid'],
+      correctAnswer: 'Orchid',
     },
     {
-      question: 'What is the capital of Ukraine?',
-      options: ['Paris', 'Kyiv', 'Berlin', 'Rome'],
-      correctAnswer: 'Kyiv',
+      question:
+        'What is the name of the dye that is historically extracted from the mucous glands of some species of molluscs and used to obtain a purple color?',
+      options: ['Indigo', 'Purple', 'Tyrian purple', 'Beta-carotene'],
+      correctAnswer: 'Tyrian purple',
     },
     {
-      question: 'What is the capital of Italy?',
-      options: ['Paris', 'Kyiv', 'Berlin', 'Rome'],
-      correctAnswer: 'Rome',
-    },
-    {
-      question: 'What is the capital of Poland?',
-      options: ['Paris', 'London', 'Berlin', 'Warshaw'],
-      correctAnswer: 'Warshaw',
-    },
-    {
-      question: 'What is the capital of Estonia?',
-      options: ['Paris', 'Kyiv', 'Talin', 'Rome'],
-      correctAnswer: 'Talin',
-    },
-    {
-      question: 'What is the capital of Germany?',
-      options: ['Paris', 'Kyiv', 'Berlin', 'Rome'],
-      correctAnswer: 'Berlin',
+      question: 'Mixing which colors will give the color purple?',
+      options: ['Red-blue', 'Green-yellow', 'Red-black', 'Orange-white'],
+      correctAnswer: 'Red-blue',
     },
     // Додайте інші питання тут
   ];
@@ -110,33 +102,37 @@ const Violet = ({navigation}) => {
   const displayQuestion = () => {
     const question = questions[currentQuestionIndex];
     return (
-      <View style={{marginTop: 40}}>
+      <View style={{marginTop: 20}}>
         <Text
           style={{
             fontSize: 25,
             fontFamily: 'Chewy-Regular',
-            marginBottom: 150,
+            marginBottom: 80,
             color: 'violet',
+            marginHorizontal: 10,
           }}>
           {question.question}
         </Text>
 
         <View style={{alignItems: 'center'}}>
-          {question.options.map((option, index) => (
-            <TouchableOpacity
-              disabled={isRuning ? false : true}
-              key={index}
-              onPress={() => checkAnswer(option)}>
-              <Text
-                style={{
-                  fontFamily: 'Gaegu-Bold',
-                  fontSize: 55,
-                  color: '#fff',
-                }}>
-                {option}
-              </Text>
-            </TouchableOpacity>
-          ))}
+          <ScrollView>
+            {question.options.map((option, index) => (
+              <TouchableOpacity
+                disabled={isRuning ? false : true}
+                key={index}
+                onPress={() => checkAnswer(option)}>
+                <Text
+                  style={{
+                    fontFamily: 'Gaegu-Bold',
+                    fontSize: 55,
+                    color: '#fff',
+                  }}>
+                  {option}
+                </Text>
+              </TouchableOpacity>
+            ))}
+            <View style={{height: 100}}></View>
+          </ScrollView>
         </View>
       </View>
     );
@@ -155,9 +151,11 @@ const Violet = ({navigation}) => {
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      if (correctAnswersCount === 6) {
+      if (correctAnswersCount === 3) {
         // Якщо всі 4 відповіді вірні
-        navigation.navigate('WinScreen');
+        setTimeout(() => {
+          navigation.navigate('WinScreen');
+        }, 1000);
       } else {
         Alert.alert('Congratulations! You have completed all questions.');
       }
@@ -168,7 +166,7 @@ const Violet = ({navigation}) => {
       <ImageBackground
         source={require('../../assets/lvlBgr.jpg')}
         style={{flex: 1}}>
-        <View style={{alignItems: 'center', marginTop: 50}}>
+        <View style={{alignItems: 'center', marginTop: 35}}>
           <Image
             source={require('../../assets/png/32.png')}
             style={{width: 120, height: 100}}
@@ -176,7 +174,7 @@ const Violet = ({navigation}) => {
         </View>
 
         {/**Timer */}
-        <View style={{alignItems: 'center', marginTop: 10}}>
+        <View style={{alignItems: 'center', marginTop: 0}}>
           <View style={{flexDirection: 'row'}}>
             {isRuning ? (
               <TouchableOpacity
@@ -254,7 +252,7 @@ const Violet = ({navigation}) => {
         <View style={{flex: 1, alignItems: 'center'}}>{displayQuestion()}</View>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('Game')}
+          onPress={() => navigation.navigate('WinScreen')}
           style={{
             position: 'absolute',
             bottom: 20,

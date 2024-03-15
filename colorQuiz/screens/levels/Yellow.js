@@ -10,44 +10,41 @@ import {
   Image,
   Button,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Yellow = ({navigation}) => {
   const questions = [
     {
-      question: 'What is the capital of France?',
-      options: ['Paris', 'London', 'Berlin', 'Rome'],
-      correctAnswer: 'Paris',
+      question:
+        'Which celestial body is often depicted as yellow and is the primary source of light and heat for the Earth?',
+      options: ['Moon', 'Mars', 'Sun', 'Venus'],
+      correctAnswer: 'Sun',
     },
     {
-      question: 'What is the capital of UK?',
-      options: ['Paris', 'London', 'Berlin', 'Rome'],
-      correctAnswer: 'London',
+      question:
+        'What is the name of the famous character from "Winnie the Pooh" who loves honey and wears a yellow shirt?',
+      options: ['Tigger', 'Eeyore', 'Piglet', 'Winnie Pooh'],
+      correctAnswer: 'Winnie Pooh',
     },
     {
-      question: 'What is the capital of Ukraine?',
-      options: ['Paris', 'Kyiv', 'Berlin', 'Rome'],
-      correctAnswer: 'Kyiv',
+      question:
+        'Which precious metal is commonly associated with the color yellow?',
+      options: ['Silver', 'Gold', 'Platinum', 'Titanium'],
+      correctAnswer: 'Gold',
     },
     {
-      question: 'What is the capital of Italy?',
-      options: ['Paris', 'Kyiv', 'Berlin', 'Rome'],
-      correctAnswer: 'Rome',
+      question:
+        'What is the name of the yellow, oval-shaped fruit known for being a good source of vitamin C and often associated with tropical regions?',
+      options: ['Banana', 'Mango', 'Pineapple', 'Lemon'],
+      correctAnswer: 'Lemon',
     },
     {
-      question: 'What is the capital of Poland?',
-      options: ['Paris', 'London', 'Berlin', 'Warshaw'],
-      correctAnswer: 'Warshaw',
+      question:
+        'Which famous band released the album "Yellow Submarine" in 1969?',
+      options: ['Beatles', 'Rolling Stones', 'Led Zeppelin', 'Pink Floyd'],
+      correctAnswer: 'Beatles',
     },
-    {
-      question: 'What is the capital of Estonia?',
-      options: ['Paris', 'Kyiv', 'Talin', 'Rome'],
-      correctAnswer: 'Talin',
-    },
-    {
-      question: 'What is the capital of Germany?',
-      options: ['Paris', 'Kyiv', 'Berlin', 'Rome'],
-      correctAnswer: 'Berlin',
-    },
+
     // Додайте інші питання тут
   ];
   //('Gaegu-Bold');4
@@ -58,6 +55,44 @@ const Yellow = ({navigation}) => {
   const [timer, setTimer] = useState(32);
   const [isRuning, setIsRuning] = useState(false);
   console.log('isRuning==>', isRuning);
+
+  const [lvlGreenIsAnlock, setLvlGreenIsAnlock] = useState(false);
+  console.log('lvlGreenIsAnlock==>', lvlGreenIsAnlock);
+
+  //////////// AsyncStorage
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    setData();
+  }, [lvlGreenIsAnlock]);
+
+  const setData = async () => {
+    try {
+      const data = {
+        lvlGreenIsAnlock,
+      };
+      const jsonData = JSON.stringify(data);
+      await AsyncStorage.setItem('Yellow', jsonData);
+      console.log('Дані збережено в AsyncStorage');
+    } catch (e) {
+      console.log('Помилка збереження даних:', e);
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const jsonData = await AsyncStorage.getItem('Yellow');
+      if (jsonData !== null) {
+        const parsedData = JSON.parse(jsonData);
+        console.log('parsedData==>', parsedData);
+        setLvlGreenIsAnlock(parsedData.lvlGreenIsAnlock);
+      }
+    } catch (e) {
+      console.log('Помилка отримання даних:', e);
+    }
+  };
 
   ///Timer
   //эфект обратного отщета времени
@@ -111,33 +146,35 @@ const Yellow = ({navigation}) => {
   const displayQuestion = () => {
     const question = questions[currentQuestionIndex];
     return (
-      <View style={{marginTop: 40}}>
+      <View style={{marginTop: 20}}>
         <Text
           style={{
             fontSize: 25,
             fontFamily: 'Chewy-Regular',
-            marginBottom: 150,
+            marginBottom: 80,
             color: 'gold',
           }}>
           {question.question}
         </Text>
 
         <View style={{alignItems: 'center'}}>
-          {question.options.map((option, index) => (
-            <TouchableOpacity
-              disabled={isRuning ? false : true}
-              key={index}
-              onPress={() => checkAnswer(option)}>
-              <Text
-                style={{
-                  fontFamily: 'Gaegu-Bold',
-                  fontSize: 55,
-                  color: '#fff',
-                }}>
-                {option}
-              </Text>
-            </TouchableOpacity>
-          ))}
+          <ScrollView>
+            {question.options.map((option, index) => (
+              <TouchableOpacity
+                disabled={isRuning ? false : true}
+                key={index}
+                onPress={() => checkAnswer(option)}>
+                <Text
+                  style={{
+                    fontFamily: 'Gaegu-Bold',
+                    fontSize: 55,
+                    color: '#fff',
+                  }}>
+                  {option}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
         </View>
       </View>
     );
@@ -156,10 +193,13 @@ const Yellow = ({navigation}) => {
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      if (correctAnswersCount === 6) {
-        // Якщо всі 6 відповіді вірні
+      if (correctAnswersCount === 4) {
+        // Якщо всі 5 відповіді вірні
+        setLvlGreenIsAnlock(true);
         setIsRuning(false);
-        navigation.navigate('Green');
+        setTimeout(() => {
+          navigation.navigate('Green');
+        }, 1000);
       } else {
         Alert.alert('Congratulations! You have completed all questions.');
       }
@@ -170,7 +210,7 @@ const Yellow = ({navigation}) => {
       <ImageBackground
         source={require('../../assets/lvlBgr.jpg')}
         style={{flex: 1}}>
-        <View style={{alignItems: 'center', marginTop: 50}}>
+        <View style={{alignItems: 'center', marginTop: 35}}>
           <Image
             source={require('../../assets/png/32.png')}
             style={{width: 120, height: 100}}
@@ -178,7 +218,7 @@ const Yellow = ({navigation}) => {
         </View>
 
         {/**Timer */}
-        <View style={{alignItems: 'center', marginTop: 10}}>
+        <View style={{alignItems: 'center', marginTop: 0}}>
           <View style={{flexDirection: 'row'}}>
             {isRuning ? (
               <TouchableOpacity
@@ -256,7 +296,7 @@ const Yellow = ({navigation}) => {
         <View style={{flex: 1, alignItems: 'center'}}>{displayQuestion()}</View>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('Game')}
+          onPress={() => navigation.navigate('HomeScreen')}
           style={{
             position: 'absolute',
             bottom: 20,

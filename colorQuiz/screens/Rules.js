@@ -30,35 +30,62 @@ const Rules = ({navigation}) => {
               borderRadius: 15,
             }}>
             <Text style={{color: 'yellow', fontSize: 20}}>
-              Color plays an important role in our lives. It surrounds us in all
-              spheres of activity, from natural landscapes to architectural
-              structures, from fashion to art. Color affects our emotions, mood
-              and even behavior. It can be seen as a language that expresses our
-              feelings and emotions. In nature, we see a variety of colors,
-              starting from the brightest shades of the morning sun to the soft
-              and calm shades of dusk. The color can be bright and lively, or
-              warm and cozy. It can evoke joy and fun, or peace and tranquility.
-              Color plays a key role in art. Artists use it to express their
-              ideas and emotions. Each shade has its own meaning and can convey
-              different feelings. For example, red can symbolize ardor or
-              hotness, while blue - calmness and coolness. In fashion, color is
-              used to create mood and impression. It helps to express our
-              personality and style. Each fashion season is defined by certain
-              colors that dominate the collections of famous designers. In
-              interior design, color affects the atmosphere of the room. It can
-              make the space bright and energetic, or warm and cozy. The choice
-              of colors for walls, furniture and decor is important for creating
-              a comfortable and cozy environment. In psychology, color is used
-              to study human emotions and states of mind. Research shows that
-              different colors can cause different reactions in people. For
-              example, red can increase blood pressure and heart rate, while
-              green can calm and relax. In our daily life, we often use colors
-              to express our feelings and mood. For example, bright colors can
-              lift our mood and make us more energetic, while muted colors can
-              help us calm down and relax. In general, color is an important
-              element in our lives that affects our emotions, mood and behavior.
-              It adds beauty and vitality to our surroundings and helps us
-              express ourselves and communicate with those around us.
+              <View>
+                <Text style={{fontSize: 27, color: '#fff', fontWeight: 'bold'}}>
+                  Rules of the game "Rainbow colors":
+                </Text>
+              </View>
+              <View>
+                <Text style={{fontSize: 27, color: '#fff', fontWeight: 'bold'}}>
+                  1. Goal of the game:
+                </Text>
+                <Text style={{fontSize: 27, color: '#fff'}}>
+                  Answer as many questions as possible about the colors of the
+                  rainbow within the time limit.
+                </Text>
+              </View>
+              <View>
+                <Text style={{fontSize: 27, color: '#fff', fontWeight: 'bold'}}>
+                  2. Game Levels:
+                </Text>
+                <Text style={{fontSize: 27, color: '#fff', marginBottom: 20}}>
+                  The game consists of seven levels, each dedicated to one of
+                  the colors of the rainbow.
+                </Text>
+              </View>
+              <View>
+                <Text style={{fontSize: 27, color: '#fff', fontWeight: 'bold'}}>
+                  3. Number of questions:
+                </Text>
+                <Text style={{fontSize: 27, color: '#fff'}}>
+                  Each level has 4 to 5 questions about the corresponding color
+                  of the rainbow.{' '}
+                </Text>
+              </View>
+              <View>
+                <Text style={{fontSize: 27, color: '#fff', fontWeight: 'bold'}}>
+                  4. Limited Time:
+                </Text>
+                <Text style={{fontSize: 27, color: '#fff'}}>
+                  Players are given 32 seconds per level. After the time limit,
+                  no more responses are accepted.{' '}
+                </Text>
+              </View>
+              <View>
+                <Text style={{fontSize: 27, color: '#fff', fontWeight: 'bold'}}>
+                  5. Questions:
+                </Text>
+                <Text style={{fontSize: 27, color: '#fff', marginBottom: 20}}>
+                  Each question has 4 answer options and only 1 is correct. The
+                  questions are related to the color of the rainbow.
+                </Text>
+              </View>
+              <View>
+                <Text style={{fontSize: 27, color: '#fff', fontWeight: 'bold'}}>
+                  Rainbow Colors Game is a fun and challenging quiz that allows
+                  players to test their knowledge of colors and the rainbow.
+                </Text>
+              </View>
             </Text>
             <View style={{height: 100}}></View>
           </View>

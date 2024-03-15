@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -8,9 +8,104 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Game = ({navigation}) => {
+  const [lvlOrangeIsAnlock, setLvlOrangeIsAnlock] = useState(false);
+  const [lvlYellowIsAnlock, setLvlYellowIsAnlock] = useState(false);
+  const [lvlGreenIsAnlock, setLvlGreenIsAnlock] = useState(false);
+  const [lvlBlueIsAnlock, setLvlBlueIsAnlock] = useState(false);
+  const [lvlIndigoIsAnlock, setLvlIndigoIsAnlock] = useState(false);
+  const [lvlVioletIsAnlock, setLvlVioletIsAnlock] = useState(false);
+  console.log('lvlVioletIsAnlock on GameScr==>', lvlVioletIsAnlock);
+
+  useEffect(() => {
+    getDataAboutOrangeLvl();
+    getDataAboutYellowLvl();
+    getDataAboutYellowGreenLvl();
+    getDataAboutBlueGreenLvl();
+    getDataAboutIndigoGreenLvl();
+    getDataAboutVioletGreenLvl();
+  }, []);
+
+  const getDataAboutOrangeLvl = async () => {
+    try {
+      const jsonData = await AsyncStorage.getItem('Red');
+      if (jsonData !== null) {
+        const parsedData = JSON.parse(jsonData);
+        //console.log('parsedData==>', parsedData);
+        setLvlOrangeIsAnlock(parsedData.lvlOrangeIsAnlock);
+      }
+    } catch (e) {
+      console.log('Помилка отримання даних:', e);
+    }
+  };
+
+  const getDataAboutYellowLvl = async () => {
+    try {
+      const jsonData = await AsyncStorage.getItem('Orange');
+      if (jsonData !== null) {
+        const parsedData = JSON.parse(jsonData);
+        console.log('parsedData==>', parsedData);
+        setLvlYellowIsAnlock(parsedData.lvlYellowIsAnlock);
+      }
+    } catch (e) {
+      console.log('Помилка отримання даних:', e);
+    }
+  };
+
+  const getDataAboutYellowGreenLvl = async () => {
+    try {
+      const jsonData = await AsyncStorage.getItem('Yellow');
+      if (jsonData !== null) {
+        const parsedData = JSON.parse(jsonData);
+        console.log('parsedData==>', parsedData);
+        setLvlGreenIsAnlock(parsedData.lvlGreenIsAnlock);
+      }
+    } catch (e) {
+      console.log('Помилка отримання даних:', e);
+    }
+  };
+
+  const getDataAboutBlueGreenLvl = async () => {
+    try {
+      const jsonData = await AsyncStorage.getItem('Green');
+      if (jsonData !== null) {
+        const parsedData = JSON.parse(jsonData);
+        console.log('parsedData==>', parsedData);
+        setLvlBlueIsAnlock(parsedData.lvlBlueIsAnlock);
+      }
+    } catch (e) {
+      console.log('Помилка отримання даних:', e);
+    }
+  };
+
+  const getDataAboutIndigoGreenLvl = async () => {
+    try {
+      const jsonData = await AsyncStorage.getItem('Blue');
+      if (jsonData !== null) {
+        const parsedData = JSON.parse(jsonData);
+        console.log('parsedData==>', parsedData);
+        setLvlIndigoIsAnlock(parsedData.lvlIndigoIsAnlock);
+      }
+    } catch (e) {
+      console.log('Помилка отримання даних:', e);
+    }
+  };
+
+  const getDataAboutVioletGreenLvl = async () => {
+    try {
+      const jsonData = await AsyncStorage.getItem('Indigo');
+      if (jsonData !== null) {
+        const parsedData = JSON.parse(jsonData);
+        console.log('parsedData==>', parsedData);
+        setLvlVioletIsAnlock(parsedData.lvlVioletIsAnlock);
+      }
+    } catch (e) {
+      console.log('Помилка отримання даних:', e);
+    }
+  };
+
   return (
     <View
       style={{
@@ -59,6 +154,7 @@ const Game = ({navigation}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              disabled={!lvlOrangeIsAnlock ? true : false}
               onPress={() => {
                 navigation.navigate('Orange');
               }}
@@ -66,7 +162,7 @@ const Game = ({navigation}) => {
                 width: 300,
                 height: 60,
                 marginBottom: 20,
-                backgroundColor: 'orange',
+                backgroundColor: lvlOrangeIsAnlock ? 'orange' : 'grey',
                 borderRadius: 50,
                 borderWidth: 1,
                 borderColor: '#fff',
@@ -88,6 +184,7 @@ const Game = ({navigation}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              disabled={!lvlYellowIsAnlock ? true : false}
               onPress={() => {
                 navigation.navigate('Yellow');
               }}
@@ -95,7 +192,7 @@ const Game = ({navigation}) => {
                 width: 300,
                 height: 60,
                 marginBottom: 20,
-                backgroundColor: 'yellow',
+                backgroundColor: !lvlYellowIsAnlock ? 'grey' : 'yellow',
                 borderRadius: 50,
                 borderWidth: 1,
                 borderColor: '#fff',
@@ -117,6 +214,7 @@ const Game = ({navigation}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              disabled={!lvlGreenIsAnlock ? true : false}
               onPress={() => {
                 navigation.navigate('Green');
               }}
@@ -124,7 +222,7 @@ const Game = ({navigation}) => {
                 width: 300,
                 height: 60,
                 marginBottom: 20,
-                backgroundColor: 'green',
+                backgroundColor: !lvlGreenIsAnlock ? 'grey' : 'green',
                 borderRadius: 50,
                 borderWidth: 1,
                 borderColor: '#fff',
@@ -146,6 +244,7 @@ const Game = ({navigation}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              disabled={!lvlBlueIsAnlock ? true : false}
               onPress={() => {
                 navigation.navigate('Blue');
               }}
@@ -153,7 +252,7 @@ const Game = ({navigation}) => {
                 width: 300,
                 height: 60,
                 marginBottom: 20,
-                backgroundColor: 'blue',
+                backgroundColor: !lvlBlueIsAnlock ? 'grey' : 'blue',
                 borderRadius: 50,
                 borderWidth: 1,
                 borderColor: '#fff',
@@ -175,6 +274,7 @@ const Game = ({navigation}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              disabled={!lvlIndigoIsAnlock ? true : false}
               onPress={() => {
                 navigation.navigate('Indigo');
               }}
@@ -182,7 +282,7 @@ const Game = ({navigation}) => {
                 width: 300,
                 height: 60,
                 marginBottom: 20,
-                backgroundColor: 'indigo',
+                backgroundColor: !lvlIndigoIsAnlock ? 'grey' : 'indigo',
                 borderRadius: 50,
                 borderWidth: 1,
                 borderColor: '#fff',
@@ -204,6 +304,7 @@ const Game = ({navigation}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              disabled={!lvlVioletIsAnlock ? true : false}
               onPress={() => {
                 navigation.navigate('Violet');
               }}
@@ -211,7 +312,7 @@ const Game = ({navigation}) => {
                 width: 300,
                 height: 60,
                 marginBottom: 20,
-                backgroundColor: 'violet',
+                backgroundColor: !lvlVioletIsAnlock ? 'grey' : 'violet',
                 borderRadius: 50,
                 borderWidth: 1,
                 borderColor: '#fff',

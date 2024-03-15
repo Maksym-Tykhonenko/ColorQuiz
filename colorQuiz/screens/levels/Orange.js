@@ -1,51 +1,43 @@
 import React, {useState, useEffect} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
   Text,
   View,
   TouchableOpacity,
   Alert,
   ImageBackground,
   Image,
+  ScrollView,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Orange = ({navigation}) => {
   const questions = [
     {
-      question: 'What is the capital of France?',
-      options: ['Paris', 'London', 'Berlin', 'Rome'],
-      correctAnswer: 'Paris',
+      question: 'What fruit is usually associated with the color orange?',
+      options: ['Apple', 'Banana', 'Orange', 'Grapes'],
+      correctAnswer: 'Orange',
     },
     {
-      question: 'What is the capital of UK?',
-      options: ['Paris', 'London', 'Berlin', 'Rome'],
-      correctAnswer: 'London',
+      question: `Which country's national football team wears an orange collar uniform?`,
+      options: ['Netherlands', 'France', 'Ukraine', 'Italy'],
+      correctAnswer: 'Netherlands',
     },
     {
-      question: 'What is the capital of Ukraine?',
-      options: ['Paris', 'Kyiv', 'Berlin', 'Rome'],
-      correctAnswer: 'Kyiv',
+      question: 'Mixing which colors will give the color orange?',
+      options: ['White-blue', 'Green-yellow', 'Red-yellow', 'Orange-blue'],
+      correctAnswer: 'Red-yellow',
     },
     {
-      question: 'What is the capital of Italy?',
-      options: ['Paris', 'Kyiv', 'Berlin', 'Rome'],
-      correctAnswer: 'Rome',
+      question:
+        'Which planet in our solar system is often called the "Red Planet" because of its reddish-orange appearance?',
+      options: ['Mars', 'Jupiter', 'Venus', 'Mercury'],
+      correctAnswer: 'Mars',
     },
     {
-      question: 'What is the capital of Poland?',
-      options: ['Paris', 'London', 'Berlin', 'Warshaw'],
-      correctAnswer: 'Warshaw',
-    },
-    {
-      question: 'What is the capital of Estonia?',
-      options: ['Paris', 'Kyiv', 'Talin', 'Rome'],
-      correctAnswer: 'Talin',
-    },
-    {
-      question: 'What is the capital of Germany?',
-      options: ['Paris', 'Kyiv', 'Berlin', 'Rome'],
-      correctAnswer: 'Berlin',
+      question:
+        'What type of flower is commonly associated with the color orange and is often used as a symbol of enthusiasm and passion?',
+      options: ['Tulip', 'Rose', 'Lily', 'Sunflower'],
+      correctAnswer: 'Sunflower',
     },
     // Додайте інші питання тут
   ];
@@ -55,6 +47,44 @@ const Orange = ({navigation}) => {
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
+
+  const [lvlYellowIsAnlock, setLvlYellowIsAnlock] = useState(false);
+  console.log('lvlYellowIsAnlock==>', lvlYellowIsAnlock);
+
+  //////////// AsyncStorage
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    setData();
+  }, [lvlYellowIsAnlock]);
+
+  const setData = async () => {
+    try {
+      const data = {
+        lvlYellowIsAnlock,
+      };
+      const jsonData = JSON.stringify(data);
+      await AsyncStorage.setItem('Orange', jsonData);
+      console.log('Дані збережено в AsyncStorage');
+    } catch (e) {
+      console.log('Помилка збереження даних:', e);
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const jsonData = await AsyncStorage.getItem('Orange');
+      if (jsonData !== null) {
+        const parsedData = JSON.parse(jsonData);
+        console.log('parsedData==>', parsedData);
+        setLvlYellowIsAnlock(parsedData.lvlYellowIsAnlock);
+      }
+    } catch (e) {
+      console.log('Помилка отримання даних:', e);
+    }
+  };
 
   ///Timer
   //эфект обратного отщета времени
@@ -105,33 +135,36 @@ const Orange = ({navigation}) => {
   const displayQuestion = () => {
     const question = questions[currentQuestionIndex];
     return (
-      <View style={{marginTop: 40}}>
+      <View style={{marginTop: 20}}>
         <Text
           style={{
             fontSize: 25,
             fontFamily: 'Chewy-Regular',
-            marginBottom: 150,
+            marginBottom: 80,
             color: 'orange',
           }}>
           {question.question}
         </Text>
 
         <View style={{alignItems: 'center'}}>
-          {question.options.map((option, index) => (
-            <TouchableOpacity
-              disabled={isRuning ? false : true}
-              key={index}
-              onPress={() => checkAnswer(option)}>
-              <Text
-                style={{
-                  fontFamily: 'Gaegu-Bold',
-                  fontSize: 55,
-                  color: '#fff',
-                }}>
-                {option}
-              </Text>
-            </TouchableOpacity>
-          ))}
+          <ScrollView>
+            {question.options.map((option, index) => (
+              <TouchableOpacity
+                disabled={isRuning ? false : true}
+                key={index}
+                onPress={() => checkAnswer(option)}>
+                <Text
+                  style={{
+                    fontFamily: 'Gaegu-Bold',
+                    fontSize: 55,
+                    color: '#fff',
+                  }}>
+                  {option}
+                </Text>
+              </TouchableOpacity>
+            ))}
+            <View style={{height: 100}}></View>
+          </ScrollView>
         </View>
       </View>
     );
@@ -150,10 +183,13 @@ const Orange = ({navigation}) => {
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      if (correctAnswersCount === 6) {
+      if (correctAnswersCount === 4) {
         // Якщо всі 6 відповіді вірні
+        setLvlYellowIsAnlock(true);
         setIsRuning(false);
-        navigation.navigate('Yellow');
+        setTimeout(() => {
+          navigation.navigate('Yellow');
+        }, 1000);
       } else {
         Alert.alert('Congratulations! You have completed all questions.');
       }
@@ -165,7 +201,7 @@ const Orange = ({navigation}) => {
       <ImageBackground
         source={require('../../assets/lvlBgr.jpg')}
         style={{flex: 1}}>
-        <View style={{alignItems: 'center', marginTop: 50}}>
+        <View style={{alignItems: 'center', marginTop: 35}}>
           <Image
             source={require('../../assets/png/32.png')}
             style={{width: 120, height: 100}}
@@ -173,7 +209,7 @@ const Orange = ({navigation}) => {
         </View>
 
         {/**Timer */}
-        <View style={{alignItems: 'center', marginTop: 10}}>
+        <View style={{alignItems: 'center', marginTop: 0}}>
           <View style={{flexDirection: 'row'}}>
             {isRuning ? (
               <TouchableOpacity
@@ -251,7 +287,7 @@ const Orange = ({navigation}) => {
         <View style={{flex: 1, alignItems: 'center'}}>{displayQuestion()}</View>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('Game')}
+          onPress={() => navigation.navigate('HomeScreen')}
           style={{
             position: 'absolute',
             bottom: 20,
