@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import {SafeAreaView, ScrollView, Text, View, Animated} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Dimensions} from 'react-native';
 
 import HomeScreen from './screens/HomeScreen';
 import Game from './screens/Game';
@@ -20,6 +21,9 @@ import LoserScreen from './screens/LoserScreen';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
+
   ///////// Loader
   const [loaderIsLoaded, setLoaderIsLoaded] = useState(false);
   const ChangeInView = props => {
@@ -30,7 +34,7 @@ const App = () => {
     useEffect(() => {
       const animateLoader1 = Animated.timing(appearingAnim1, {
         toValue: 1,
-        duration: 6000,
+        duration: 2000,
         useNativeDriver: true,
       });
 
@@ -38,90 +42,49 @@ const App = () => {
         setFirstLouderIsOver(true);
       });
 
-      setTimeout(() => {
-        setLoaderIsLoaded(true);
-      }, 8000);
-
       return () => {
         animateLoader1.stop();
       };
     }, []);
 
+    const appearingAnim2 = useRef(new Animated.Value(0)).current; // Initial value for opacity: 1 to 0
+    useEffect(() => {
+      if (firstLouderIsOver) {
+        Animated.timing(appearingAnim2, {
+          toValue: 1,
+          duration: 2000,
+          useNativeDriver: true,
+        }).start(() => {
+          setTimeout(() => {
+            setLoaderIsLoaded(true);
+          }, 2000);
+        });
+      }
+    }, [firstLouderIsOver]);
+
     return (
-      <View
-        style={{
-          position: 'relative',
-          flex: 1,
-          //backgroundColor: '#000',
-          position: 'relative',
-        }}>
+      <View style={{position: 'relative', flex: 1}}>
         <Animated.Image
-          source={require('./assets/bgrLoader.jpg')} // Special animatable View
+          source={require('./assets/bgr2.jpg')} // Special animatable View
           style={{
             ...props.style,
             opacity: appearingAnim1,
-            width: '100%',
-            height: '100%',
-            position: 'absolute',
-            //backgroundColor: '#000',
-            alignItems: 'center',
-            justifyContent: 'center', // Bind opacity to animated value
+            width: windowWidth,
+            height: windowHeight,
+            position: 'absolute', // Bind opacity to animated value
           }}
         />
-        <Animated.View
-          style={{
-            opacity: appearingAnim1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'absolute',
-            bottom: 200,
-            left: 60,
-          }}>
+        {firstLouderIsOver && (
           <Animated.Image
-            source={require('./assets/png/32.png')}
-            style={{width: 160, height: 140}}
-          />
-          <Animated.Image
-            source={require('./assets/png/Questions.png')}
-            style={{}}
-          />
-          <Animated.Image
-            source={require('./assets/png/from.png')}
-            style={{}}
-          />
-          <Animated.Image
-            source={require('./assets/png/red.png')}
-            style={{width: 220, height: 140}}
-          />
-
-          {/**  <Animated.Text
+            source={require('./assets/bgr1.jpg')} // Special animatable View
             style={{
-              color: 'red',
-              fontSize: 120,
-              //fontWeight: 'bold',
-              fontFamily: 'Gaegu-Bold',
-            }}>
-            Red
-          </Animated.Text>*/}
-          <Animated.Image
-            source={require('./assets/png/to.png')}
-            style={{marginTop: -20, marginBottom: 20}}
+              opacity: appearingAnim2,
+              width: windowWidth,
+              height: windowHeight,
+              position: 'absolute', // Bind opacity to animated value
+            }}
           />
-          {/**
-          <Animated.Text
-            style={{
-              color: 'violet',
-              fontSize: 120,
-              //fontWeight: 'bold',
-              fontFamily: 'Gaegu-Bold',
-            }}>
-            Violet
-          </Animated.Text> */}
-          <Animated.Image
-            source={require('./assets/png/violet.png')}
-            style={{width: '100%', height: 100}}
-          />
-        </Animated.View>
+        )}
       </View>
     );
   };

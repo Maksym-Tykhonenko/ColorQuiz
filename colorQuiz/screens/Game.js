@@ -9,6 +9,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Dimensions} from 'react-native';
 
 const Game = ({navigation}) => {
   const [lvlOrangeIsAnlock, setLvlOrangeIsAnlock] = useState(false);
@@ -18,6 +19,9 @@ const Game = ({navigation}) => {
   const [lvlIndigoIsAnlock, setLvlIndigoIsAnlock] = useState(false);
   const [lvlVioletIsAnlock, setLvlVioletIsAnlock] = useState(false);
   console.log('lvlVioletIsAnlock on GameScr==>', lvlVioletIsAnlock);
+
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
 
   useEffect(() => {
     getDataAboutOrangeLvl();
@@ -113,7 +117,9 @@ const Game = ({navigation}) => {
         flex: 1,
         backgroundColor: '#000',
       }}>
-      <ImageBackground source={require('../assets/Bgr.jpg')} style={{flex: 1}}>
+      <ImageBackground
+        source={require('../assets/Bgr.jpg')}
+        style={{flex: 1, width: windowWidth, height: windowHeight}}>
         <View style={{alignItems: 'center', marginTop: 50}}>
           <Image
             source={require('../assets/png/32.png')}
@@ -133,10 +139,10 @@ const Game = ({navigation}) => {
                 marginBottom: 20,
                 backgroundColor: 'red',
                 borderRadius: 50,
-                borderWidth: 1,
+                borderWidth: 5,
                 borderColor: '#fff',
                 shadowColor: 'red',
-                shadowOffset: {width: 0, height: 1},
+                shadowOffset: {width: 0, height: 18},
                 shadowOpacity: 0.9,
                 shadowRadius: 10,
                 alignItems: 'center',
@@ -164,10 +170,10 @@ const Game = ({navigation}) => {
                 marginBottom: 20,
                 backgroundColor: lvlOrangeIsAnlock ? 'orange' : 'grey',
                 borderRadius: 50,
-                borderWidth: 1,
+                borderWidth: 5,
                 borderColor: '#fff',
                 shadowColor: 'orange',
-                shadowOffset: {width: 0, height: 1},
+                shadowOffset: {width: 0, height: 18},
                 shadowOpacity: 0.9,
                 shadowRadius: 10,
                 alignItems: 'center',
@@ -194,10 +200,10 @@ const Game = ({navigation}) => {
                 marginBottom: 20,
                 backgroundColor: !lvlYellowIsAnlock ? 'grey' : 'yellow',
                 borderRadius: 50,
-                borderWidth: 1,
+                borderWidth: 5,
                 borderColor: '#fff',
                 shadowColor: 'yellow',
-                shadowOffset: {width: 0, height: 1},
+                shadowOffset: {width: 0, height: 18},
                 shadowOpacity: 0.9,
                 shadowRadius: 10,
                 alignItems: 'center',
@@ -224,10 +230,10 @@ const Game = ({navigation}) => {
                 marginBottom: 20,
                 backgroundColor: !lvlGreenIsAnlock ? 'grey' : 'green',
                 borderRadius: 50,
-                borderWidth: 1,
+                borderWidth: 5,
                 borderColor: '#fff',
                 shadowColor: 'green',
-                shadowOffset: {width: 0, height: 1},
+                shadowOffset: {width: 0, height: 18},
                 shadowOpacity: 0.9,
                 shadowRadius: 10,
                 alignItems: 'center',
@@ -254,10 +260,10 @@ const Game = ({navigation}) => {
                 marginBottom: 20,
                 backgroundColor: !lvlBlueIsAnlock ? 'grey' : 'blue',
                 borderRadius: 50,
-                borderWidth: 1,
+                borderWidth: 5,
                 borderColor: '#fff',
                 shadowColor: 'blue',
-                shadowOffset: {width: 0, height: 1},
+                shadowOffset: {width: 0, height: 18},
                 shadowOpacity: 0.9,
                 shadowRadius: 10,
                 alignItems: 'center',
@@ -284,10 +290,10 @@ const Game = ({navigation}) => {
                 marginBottom: 20,
                 backgroundColor: !lvlIndigoIsAnlock ? 'grey' : 'indigo',
                 borderRadius: 50,
-                borderWidth: 1,
+                borderWidth: 5,
                 borderColor: '#fff',
                 shadowColor: 'indigo',
-                shadowOffset: {width: 0, height: 1},
+                shadowOffset: {width: 0, height: 18},
                 shadowOpacity: 0.9,
                 shadowRadius: 10,
                 alignItems: 'center',
@@ -314,10 +320,10 @@ const Game = ({navigation}) => {
                 marginBottom: 20,
                 backgroundColor: !lvlVioletIsAnlock ? 'grey' : 'violet',
                 borderRadius: 50,
-                borderWidth: 1,
+                borderWidth: 5,
                 borderColor: '#fff',
                 shadowColor: 'violet',
-                shadowOffset: {width: 0, height: 1},
+                shadowOffset: {width: 0, height: 18},
                 shadowOpacity: 0.9,
                 shadowRadius: 10,
                 alignItems: 'center',
@@ -333,6 +339,7 @@ const Game = ({navigation}) => {
                 violet
               </Text>
             </TouchableOpacity>
+            <View style={{height: 100}}></View>
           </ScrollView>
         </View>
 
@@ -340,11 +347,23 @@ const Game = ({navigation}) => {
           onPress={() => navigation.goBack()}
           style={{
             position: 'absolute',
-            bottom: 20,
-            right: 10,
+            bottom: 0,
+            right: 5,
 
             alignItems: 'center',
             justifyContent: 'center',
+            marginBottom: 20,
+            width: 140,
+            height: 80,
+            backgroundColor: '#df121c',
+            borderRadius: 50,
+            borderWidth: 5,
+            borderColor: '#fff',
+            shadowColor: '#721536',
+            shadowOffset: {width: 0, height: 18},
+            shadowOpacity: 0.8,
+            shadowRadius: 10,
+            elevation: 10,
           }}>
           <Image source={require('../assets/png/Exit.png')} style={{}} />
         </TouchableOpacity>

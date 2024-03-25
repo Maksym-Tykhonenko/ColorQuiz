@@ -96,11 +96,23 @@ const Rules = ({navigation}) => {
           onPress={() => navigation.goBack()}
           style={{
             position: 'absolute',
-            bottom: 20,
-            right: 10,
+            bottom: 0,
+            right: 5,
 
             alignItems: 'center',
             justifyContent: 'center',
+            marginBottom: 20,
+            width: 140,
+            height: 80,
+            backgroundColor: '#df121c',
+            borderRadius: 50,
+            borderWidth: 5,
+            borderColor: '#fff',
+            shadowColor: '#721536',
+            shadowOffset: {width: 0, height: 18},
+            shadowOpacity: 0.8,
+            shadowRadius: 10,
+            elevation: 10,
           }}>
           <Image source={require('../assets/png/Exit.png')} style={{}} />
         </TouchableOpacity>

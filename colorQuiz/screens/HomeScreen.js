@@ -21,7 +21,7 @@ const HomeScreen = ({navigation}) => {
           <View style={{alignItems: 'center', marginTop: 50}}>
             <Image
               source={require('../assets/png/32.png')}
-              style={{width: 120, height: 100}}
+              style={{width: 180, height: 150}}
             />
           </View>
 
@@ -30,7 +30,7 @@ const HomeScreen = ({navigation}) => {
               flex: 1,
               alignItems: 'center',
               justifyContent: 'center',
-              marginTop: -200,
+              marginTop: -150,
             }}>
             <TouchableOpacity
               onPress={() => {
@@ -40,6 +40,17 @@ const HomeScreen = ({navigation}) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: 20,
+                width: 300,
+                height: 120,
+                backgroundColor: '#df121c',
+                borderRadius: 50,
+                borderWidth: 5,
+                borderColor: '#fff',
+                shadowColor: '#721536',
+                shadowOffset: {width: 0, height: 18},
+                shadowOpacity: 0.8,
+                shadowRadius: 10,
+                elevation: 10,
               }}>
               <Image source={require('../assets/png/Game.png')} style={{}} />
             </TouchableOpacity>
@@ -51,7 +62,18 @@ const HomeScreen = ({navigation}) => {
               style={{
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginTop: 20,
+                marginBottom: 20,
+                width: 300,
+                height: 120,
+                backgroundColor: '#df121c',
+                borderRadius: 50,
+                borderWidth: 5,
+                borderColor: '#fff',
+                shadowColor: '#721536',
+                shadowOffset: {width: 0, height: 18},
+                shadowOpacity: 0.8,
+                shadowRadius: 10,
+                elevation: 10,
               }}>
               <Image source={require('../assets/png/Rules.png')} style={{}} />
             </TouchableOpacity>

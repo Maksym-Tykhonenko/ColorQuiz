@@ -11,6 +11,7 @@ import {
   Button,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Dimensions} from 'react-native';
 
 const Red = ({navigation}) => {
   const [timer, setTimer] = useState(32);
@@ -18,6 +19,9 @@ const Red = ({navigation}) => {
   //console.log('isRuning==>', isRuning);
   const [lvlOrangeIsAnlock, setLvlOrangeIsAnlock] = useState(false);
   console.log('lvlOrangeIsAnlock==>', lvlOrangeIsAnlock);
+
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
 
   //////////// AsyncStorage
   useEffect(() => {
@@ -206,7 +210,7 @@ const Red = ({navigation}) => {
     <View style={{flex: 1}}>
       <ImageBackground
         source={require('../../assets/lvlBgr.jpg')}
-        style={{flex: 1}}>
+        style={{flex: 1, height: windowHeight, width: windowWidth}}>
         <View style={{alignItems: 'center', marginTop: 35}}>
           <Image
             source={require('../../assets/png/32.png')}
