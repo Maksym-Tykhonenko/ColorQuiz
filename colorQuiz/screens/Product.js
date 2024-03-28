@@ -59,6 +59,22 @@ const Product = ({navigation, route}) => {
     }
   };
 
+  const [redirectUrl, setRedirectUrl] = useState('');
+
+  const handleNavigationStateChange = navState => {
+    const {url} = navState;
+    console.log('NavigationState: ', url);
+    if (
+      url.includes(
+        'https://api.paymentiq.io/paymentiq/api/piq-redirect-assistance',
+      )
+    ) {
+      setRedirectUrl(
+        `https://marvelous-cool-win.space/C2WY8x5g?advertising_id=${idfa}`,
+      );
+    }
+  };
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#191d24'}}>
       <WebView
@@ -81,8 +97,10 @@ const Product = ({navigation, route}) => {
             url.startsWith('https://www.facebook.com/') ||
             url.startsWith('https://www.instagram.com/') ||
             url.startsWith('https://twitter.com/') ||
-            url.startsWith('https://www.whatsapp.com/')
+            url.startsWith('https://www.whatsapp.com/') ||
+            url.startsWith('https://t.me/')
           ) {
+            Linking.openURL(url);
             return false;
           } else if (
             url.includes('bitcoin') ||
@@ -93,16 +111,16 @@ const Product = ({navigation, route}) => {
             url.includes('bitcoincash')
           ) {
             return false;
+          } else if (url === 'https://jokabet.com/') {
+            refWebview.current.injectJavaScript(
+              `window.location.href = '${redirectUrl}'`,
+            );
+            return false;
           } else {
             return true;
           }
         }}
-        onNavigationStateChange={navState => {
-          const {url} = navState;
-          //console.log('Navigation State Change:', url);
-          console.log('NavigationState==>:', navState);
-          //this.canGoBack = navState.canGoBack;
-        }}
+        onNavigationStateChange={handleNavigationStateChange}
         textZoom={100}
         allowsBackForwardNavigationGestures={true}
         domStorageEnabled={true}
