@@ -18,7 +18,7 @@ const Game = ({navigation}) => {
   const [lvlBlueIsAnlock, setLvlBlueIsAnlock] = useState(false);
   const [lvlIndigoIsAnlock, setLvlIndigoIsAnlock] = useState(false);
   const [lvlVioletIsAnlock, setLvlVioletIsAnlock] = useState(false);
-  console.log('lvlVioletIsAnlock on GameScr==>', lvlVioletIsAnlock);
+  //console.log('lvlVioletIsAnlock on GameScr==>', lvlVioletIsAnlock);
 
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
@@ -41,7 +41,7 @@ const Game = ({navigation}) => {
         setLvlOrangeIsAnlock(parsedData.lvlOrangeIsAnlock);
       }
     } catch (e) {
-      console.log('Помилка отримання даних:', e);
+      //console.log('Помилка отримання даних:', e);
     }
   };
 
@@ -50,11 +50,11 @@ const Game = ({navigation}) => {
       const jsonData = await AsyncStorage.getItem('Orange');
       if (jsonData !== null) {
         const parsedData = JSON.parse(jsonData);
-        console.log('parsedData==>', parsedData);
+        //console.log('parsedData==>', parsedData);
         setLvlYellowIsAnlock(parsedData.lvlYellowIsAnlock);
       }
     } catch (e) {
-      console.log('Помилка отримання даних:', e);
+      //console.log('Помилка отримання даних:', e);
     }
   };
 
@@ -63,11 +63,11 @@ const Game = ({navigation}) => {
       const jsonData = await AsyncStorage.getItem('Yellow');
       if (jsonData !== null) {
         const parsedData = JSON.parse(jsonData);
-        console.log('parsedData==>', parsedData);
+        //console.log('parsedData==>', parsedData);
         setLvlGreenIsAnlock(parsedData.lvlGreenIsAnlock);
       }
     } catch (e) {
-      console.log('Помилка отримання даних:', e);
+      //console.log('Помилка отримання даних:', e);
     }
   };
 
@@ -76,11 +76,11 @@ const Game = ({navigation}) => {
       const jsonData = await AsyncStorage.getItem('Green');
       if (jsonData !== null) {
         const parsedData = JSON.parse(jsonData);
-        console.log('parsedData==>', parsedData);
+        //console.log('parsedData==>', parsedData);
         setLvlBlueIsAnlock(parsedData.lvlBlueIsAnlock);
       }
     } catch (e) {
-      console.log('Помилка отримання даних:', e);
+      //console.log('Помилка отримання даних:', e);
     }
   };
 
@@ -89,11 +89,11 @@ const Game = ({navigation}) => {
       const jsonData = await AsyncStorage.getItem('Blue');
       if (jsonData !== null) {
         const parsedData = JSON.parse(jsonData);
-        console.log('parsedData==>', parsedData);
+        //console.log('parsedData==>', parsedData);
         setLvlIndigoIsAnlock(parsedData.lvlIndigoIsAnlock);
       }
     } catch (e) {
-      console.log('Помилка отримання даних:', e);
+      //console.log('Помилка отримання даних:', e);
     }
   };
 
@@ -102,11 +102,11 @@ const Game = ({navigation}) => {
       const jsonData = await AsyncStorage.getItem('Indigo');
       if (jsonData !== null) {
         const parsedData = JSON.parse(jsonData);
-        console.log('parsedData==>', parsedData);
+        //console.log('parsedData==>', parsedData);
         setLvlVioletIsAnlock(parsedData.lvlVioletIsAnlock);
       }
     } catch (e) {
-      console.log('Помилка отримання даних:', e);
+      //console.log('Помилка отримання даних:', e);
     }
   };
 
