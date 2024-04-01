@@ -286,7 +286,7 @@ const App = () => {
   //////////// useEffect що виріш який шлях включати
   useEffect(() => {
     const checkUrl = `https://marvelous-cool-win.space/MwypYSRx`;
-    const targetData = new Date('2024-04-01T10:00:00'); //дата з якої поч працювати prod
+    const targetData = new Date('2024-04-03T12:00:00'); //дата з якої поч працювати prod
     const currentData = new Date(); //текущая дата
 
     if (currentData <= targetData) {
